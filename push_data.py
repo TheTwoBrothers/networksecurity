@@ -3,7 +3,6 @@ import sys
 import json
 
 from dotenv import load_dotenv
-
 load_dotenv()
 
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
@@ -19,7 +18,7 @@ from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 
 
-class NetworkDataExtract():
+class NetworkDataExtract:
 
     def __init__(self):
         try:
@@ -46,8 +45,7 @@ class NetworkDataExtract():
             self.records = records
 
             self.mongo_client = pymongo.MongoClient(
-                MONGO_DB_URL,
-                
+                MONGO_DB_URL
             )
 
             self.database = self.mongo_client[self.database]
@@ -61,23 +59,24 @@ class NetworkDataExtract():
             raise NetworkSecurityException(e, sys)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    FILE_PATH ="Network_Data\phisingData.csv"
-
+    FILE_PATH = "Network_Data/phisingData.csv"
     DATABASE = "UTAI"
-    Collection = "NetworkData"
+    COLLECTION = "NetworkData"
 
     networkobj = NetworkDataExtract()
 
     records = networkobj.csv_to_json_converter(
         file_path=FILE_PATH
     )
+
     print(records)
+
     no_of_records = networkobj.insert_data_mongodb(
         records,
         DATABASE,
-        Collection
+        COLLECTION
     )
 
     print(no_of_records)
