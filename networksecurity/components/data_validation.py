@@ -9,7 +9,7 @@ import pandas as pd
 import os
 import sys
 
-from networksecurity.utils.main_utils import read_yaml_file, write_yaml_file
+from networksecurity.utils.main_utils.utils import read_yaml_file, write_yaml_file
 
 
 class DataValidation:
